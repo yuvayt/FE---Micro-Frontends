@@ -1,0 +1,23 @@
+table:
+  schema: public
+  name: district
+array_relationships:
+  - name: ward
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: ward
+        insertion_order: null
+        column_mapping:
+          id: district_id
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - name
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true

@@ -1,0 +1,37 @@
+table:
+  schema: public
+  name: posts_tags_relationship
+object_relationships:
+  - name: post
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: post
+        insertion_order: null
+        column_mapping:
+          post_id: id
+  - name: tag
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: tags
+        insertion_order: null
+        column_mapping:
+          tag_id: id
+select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+        - post_id
+        - tag_id
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+        - post_id
+        - tag_id
+      filter: {}
+      allow_aggregations: true

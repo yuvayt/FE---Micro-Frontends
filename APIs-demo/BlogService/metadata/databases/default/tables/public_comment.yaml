@@ -1,0 +1,14 @@
+table:
+  schema: public
+  name: comment
+select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+        - content
+        - create_at
+        - email
+        - id
+        - post_id
+        - update_at
+      filter: {}

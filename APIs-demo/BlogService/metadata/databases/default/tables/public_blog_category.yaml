@@ -1,0 +1,12 @@
+table:
+  schema: public
+  name: blog_category
+select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+        - id
+        - number_post
+        - slug
+        - title
+      filter: {}

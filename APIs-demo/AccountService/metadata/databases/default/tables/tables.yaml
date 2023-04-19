@@ -1,0 +1,6 @@
+- "!include public_address.yaml"
+- "!include public_city.yaml"
+- "!include public_country.yaml"
+- "!include public_district.yaml"
+- "!include public_users.yaml"
+- "!include public_ward.yaml"

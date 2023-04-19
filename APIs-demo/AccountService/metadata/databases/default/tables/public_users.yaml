@@ -1,0 +1,65 @@
+table:
+  schema: public
+  name: users
+object_relationships:
+  - name: billing
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: address
+        insertion_order: null
+        column_mapping:
+          billing_address: id
+  - name: shipping
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: address
+        insertion_order: null
+        column_mapping:
+          shipping_address: id
+select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+        - email
+        - firstname
+        - id
+        - lastname
+        - password
+      filter: {}
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+        - billing_address
+        - created_at
+        - email
+        - firstname
+        - id
+        - lastname
+        - password
+        - shipping_address
+        - updated_at
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - billing_address
+        - firstname
+        - lastname
+        - password
+        - shipping_address
+        - updated_at
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check:
+        id:
+          _eq: X-Hasura-User-Id

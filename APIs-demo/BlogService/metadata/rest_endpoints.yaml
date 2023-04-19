@@ -1,0 +1,36 @@
+- definition:
+    query:
+      collection_name: allowed-queries
+      query_name: get all post
+  url: getAllPost/:limit/:offset
+  methods:
+    - GET
+  name: get all post
+  comment: null
+- definition:
+    query:
+      collection_name: allowed-queries
+      query_name: get post detail
+  url: getPostDetail/:id
+  methods:
+    - GET
+  name: get post detail
+  comment: null
+- definition:
+    query:
+      collection_name: allowed-queries
+      query_name: get blog caterory
+  url: post/categories
+  methods:
+    - GET
+  name: get blog caterory
+  comment: null
+- definition:
+    query:
+      collection_name: allowed-queries
+      query_name: search post
+  url: searchPost
+  methods:
+    - POST
+  name: search post
+  comment: null

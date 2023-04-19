@@ -1,0 +1,95 @@
+version: "3.6"
+services:
+  postgres:
+    image: postgres:14.2-alpine
+    container_name: ${PROJECT}_postgresql
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    expose:
+      - "5432"
+    volumes:
+      - postgresql_db:/var/lib/postgresql/data
+    networks:
+      - account-network
+
+  logto:
+    depends_on:
+      - postgres
+    image: ghcr.io/logto-io/logto:prerelease
+    environment:
+      - ALL_YES=1
+      - NO_INQUIRY=0
+      - TRUST_PROXY_HEADER=1
+      - DB_URL_DEFAULT=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      - PORT=${DOCKER_PORT}
+      - ENDPOINT=http://localhost:${LOGTO_PORT}
+    ports:
+      - ${LOGTO_PORT}:${DOCKER_PORT}
+    networks:
+      - account-network
+
+  graphql-engine:
+    image: hasura/graphql-engine:v2.8.0
+    container_name: ${PROJECT}_hasura
+    depends_on:
+      - postgres
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      HASURA_GRAPHQL_JWT_SECRET: ${HASURA_GRAPHQL_JWT_SECRET}
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: ${HASURA_GRAPHQL_UNAUTHORIZED_ROLE}
+      HASURA_GRAPHQL_LOG_LEVEL: ${AUTH_LOG_LEVEL}
+      HASURA_GRAPHQL_ENABLE_CONSOLE: ${HASURA_GRAPHQL_ENABLE_CONSOLE}
+    expose:
+      - "8080"
+    networks:
+      - account-network
+
+  app:
+    image: "node:16.15.0-alpine"
+    container_name: ${PROJECT}_app
+    depends_on:
+      - graphql-engine
+    user: "node"
+    working_dir: /home/node/app
+    env_file: .env
+    environment:
+      NODE_ENV: ${ENVIRONMENT}
+    command: sh -c "yarn install && yarn start"
+    expose:
+      - ${DOCKER_PORT}
+    links:
+      - graphql-engine
+    volumes:
+      - "./:/home/node/app"
+    networks:
+      - account-network
+
+  webserver:
+    image: nginx:1.21.6-alpine
+    container_name: ${PROJECT}_webserver
+    restart: unless-stopped
+    tty: true
+    depends_on:
+      - app
+    links:
+      - app
+      - graphql-engine
+      - logto
+    volumes:
+      - ".docker/nginx/nginx.conf:/etc/nginx/nginx.conf"
+    ports:
+      - ${AUTH_PORT}:80
+    networks:
+      - account-network
+
+networks:
+  account-network:
+    driver: bridge
+
+volumes:
+  postgresql_db:

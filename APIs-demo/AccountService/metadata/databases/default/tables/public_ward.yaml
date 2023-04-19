@@ -1,0 +1,13 @@
+table:
+  schema: public
+  name: ward
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - name
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true

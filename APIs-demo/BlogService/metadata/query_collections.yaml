@@ -1,0 +1,98 @@
+- name: allowed-queries
+  definition:
+    queries:
+      - name: get blog caterory
+        query: |
+          query getAllCategories {
+          	blog_category {
+          		id
+          		slug
+          		title
+          		number_post
+          	}
+          }
+      - name: get all post
+        query: |
+          query getAllPost ($limit: Int! = 10, $offset: Int! = 0) {
+          	post(limit: $limit, offset: $offset) {
+          		id
+          		user_id
+          		category {
+          			id
+          			number_post
+          			slug
+          			title
+          		}
+          		comments {
+          			id
+          			content
+          			email
+          			update_at
+          			create_at
+          		}
+          		image
+          		content
+          		is_related
+          		slug
+          		sumary
+          		tags {
+          			id
+          			title
+          		}
+          		create_at
+          		update_at
+          	}
+          }
+      - name: get post detail
+        query: |
+          query getPostDetail ($id: Int) {
+          	post(where: {id:{_eq:$id}}) {
+          		user_id
+          		category {
+          			number_post
+          			slug
+          			title
+          		}
+          		comments {
+          			content
+          			email
+          		}
+          		content
+          		create_at
+          		update_at
+          		image
+          		tags {
+          			title
+          		}
+          		title
+          		is_related
+          	}
+          }
+      - name: search post
+        query: |
+          query searchPost ($search: String, $limit: Int! = 10, $offset: Int! = 0) {
+          	post(where: {title:{_like:$search}}, limit: $limit, offset: $offset) {
+          		category {
+          			number_post
+          			slug
+          			title
+          		}
+          		comments {
+          			content
+          			email
+          			update_at
+          			create_at
+          		}
+          		image
+          		content
+          		is_related
+          		slug
+          		sumary
+          		title
+          		tags {
+          			title
+          		}
+          		create_at
+          		update_at
+          	}
+          }
