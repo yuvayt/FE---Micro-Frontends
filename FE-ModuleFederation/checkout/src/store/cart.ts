@@ -26,7 +26,10 @@ export const useCartStore = defineStore("cart", () => {
   const removeItem = (item: any) => {
     if (!cartData.value) return;
     if (cartData.value.items.length > 0) {
-      const findIndex = _.findIndex(cartData.value.items, (o: IItemCart) => o.id === item.id);
+      const findIndex = _.findIndex(
+        cartData.value.items,
+        (o: IItemCart) => o.id === item.id
+      );
       if (findIndex !== -1) {
         const newData = _.filter(cartData.value.items, (o) => o.id !== item.id);
         if (newData.length > 0) {
@@ -67,7 +70,13 @@ export const useCartStore = defineStore("cart", () => {
     globalStorage.setCartData(cartData.value);
   };
 
-  const saveOrder = ({ paymentMethod, paymentStatus }: { paymentMethod: string; paymentStatus: string }) => {
+  const saveOrder = ({
+    paymentMethod,
+    paymentStatus,
+  }: {
+    paymentMethod: string;
+    paymentStatus: string;
+  }) => {
     globalStorage.saveOrder({
       grandTotal: cartData.value?.grandTotal || 0,
       subTotal: cartData.value?.subTotal || 0,

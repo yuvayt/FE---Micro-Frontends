@@ -81,7 +81,10 @@ class globalStorageClass implements IGlobalStorage {
       return;
     }
 
-    const findIndex = _.findIndex(data.items, (o: IItemCart) => o.id === item.id);
+    const findIndex = _.findIndex(
+      data.items,
+      (o: IItemCart) => o.id === item.id
+    );
     if (findIndex !== -1) {
       const newData = _.filter(data.items, (o) => o.id !== item.id);
       if (newData.length > 0) {

@@ -1,5 +1,5 @@
 {
-    "name": "@mfmf/account",
+    "name": "@mfmf/helloworld",
     "version": "0.1.0",
     "private": true,
     "devDependencies": {
@@ -11,8 +11,9 @@
         "@babel/runtime": "^7.18.6",
         "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
         "@types/fork-ts-checker-webpack-plugin": "^0.4.5",
-        "@types/react": "18.0.14",
-        "@types/react-dom": "18.0.5",
+        "@types/node": "^16.18.97",
+        "@types/react": "^18.3.2",
+        "@types/react-dom": "^18.3.0",
         "@types/webpack-env": "^1.17.0",
         "@typescript-eslint/eslint-plugin": "^5.30.5",
         "@typescript-eslint/parser": "^5.30.5",
@@ -32,13 +33,18 @@
         "react-refresh": "^0.14.0",
         "sass": "^1.53.0",
         "sass-loader": "^13.0.2",
-        "serve": "13.0.2",
+        "serve": "^14.2.3",
         "style-loader": "^3.3.1",
-        "typescript": "4.7.4",
-        "typescript-plugin-css-modules": "^3.4.0",
-        "webpack": "^5.73.0",
-        "webpack-cli": "^4.10.0",
-        "webpack-dev-server": "^4.9.3"
+        "typescript": "^4.9.5",
+        "typescript-plugin-css-modules": "^5.1.0",
+        "webpack": "^5.91.0",
+        "webpack-cli": "^5.1.4",
+        "webpack-dev-server": "^5.0.4"
+    },
+    "dependencies": {
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-scripts": "^5.0.1"
     },
     "scripts": {
         "start": "webpack-cli serve",
@@ -46,22 +52,7 @@
         "serve": "serve dist",
         "clean": "rm -rf dist",
         "lint": "eslint --ext .ts,.tsx",
-        "lint:fix": "npm run lint -- --fix"
-    },
-    "dependencies": {
-        "axios": "^0.27.2",
-        "bootstrap": "4.4.1",
-        "classnames": "^2.3.1",
-        "dotenv": "^16.0.1",
-        "elegant-icons": "^0.0.1",
-        "font-awesome": "^4.7.0",
-        "jquery": "3.6.0",
-        "jquery-nice-select": "^1.1.0",
-        "jquery-ui-bundle": "^1.12.1-migrate",
-        "owl.carousel": "^2.3.4",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "slicknav": "^1.0.8"
+        "lint:fix": "npm run lint --fix"
     },
     "husky": {
         "hooks": {

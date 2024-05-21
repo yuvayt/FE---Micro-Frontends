@@ -34,8 +34,16 @@
               </div>
               <div class="checkout__input">
                 <p>Address<span>*</span></p>
-                <input type="text" placeholder="Street Address" class="checkout__input__add" required />
-                <input type="text" placeholder="Apartment, suite, unite ect (optinal)" />
+                <input
+                  type="text"
+                  placeholder="Street Address"
+                  class="checkout__input__add"
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Apartment, suite, unite ect (optinal)"
+                />
               </div>
               <div class="checkout__input">
                 <p>Town/City<span>*</span></p>
@@ -65,13 +73,19 @@
               </div>
               <div class="checkout__input">
                 <p>Order notes<span>*</span></p>
-                <input type="text" placeholder="Notes about your order, e.g. special notes for delivery." required />
+                <input
+                  type="text"
+                  placeholder="Notes about your order, e.g. special notes for delivery."
+                  required
+                />
               </div>
             </div>
             <div class="col-lg-4 col-md-6">
               <div class="checkout__order">
                 <h4>Your Order</h4>
-                <div class="checkout__order__products">Products <span>Total</span></div>
+                <div class="checkout__order__products">
+                  Products <span>Total</span>
+                </div>
                 <ul v-if="cartData">
                   <li v-for="item in cartData.items" :key="item.id">
                     {{ item.title }}
@@ -100,7 +114,9 @@
                     <span class="checkmark" />
                   </label>
                 </div>
-                <p class="text-danger" v-show="!isSelectPayment">Payment is required!</p>
+                <p class="text-danger" v-show="!isSelectPayment">
+                  Payment is required!
+                </p>
                 <button type="submit" class="site-btn">PLACE ORDER</button>
               </div>
             </div>
@@ -158,7 +174,8 @@ export default defineComponent({
         this.eventBus.emit("showMessage", null, {
           detail: {
             serverity: "fail",
-            message: "There is a problem with your payment, please check your information and try again",
+            message:
+              "There is a problem with your payment, please check your information and try again",
           },
         });
         this.cartStore.saveOrder({

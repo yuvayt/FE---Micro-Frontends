@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createMountComponent } from "../../utils/mountComponent";
 import "./SnackMessage.scss";
 import { createPortal } from 'react-dom';
